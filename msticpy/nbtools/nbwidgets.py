@@ -755,6 +755,43 @@ class SelectAlert:
         self.display()
 
 
+# Slightly modified class to display alerts in a cleaner form 
+# pylint: disable=too-many-instance-attributes
+@export
+class CleanerSelectAlert(SelectAlert):    
+    def _get_alert(self, alert_id):
+        """Get the alert by alert_id."""
+        self.alert_id = alert_id
+        selected_alerts = self.alerts[self.alerts["SystemAlertId"] == alert_id]
+
+        if selected_alerts.shape[0] > 0:
+            alert = pd.Series(selected_alerts.iloc[0])
+            alert = alert.mask(alert.eq('None')).dropna()  # drop empty columns
+            if isinstance(alert["ExtendedProperties"], str):
+                try:
+                    alert["ExtendedProperties"] = json.loads(
+                        (alert["ExtendedProperties"])
+                    )
+                except JSONDecodeError:
+                    pass
+            if isinstance(alert["Entities"], str):
+                try:
+                    alert["Entities"] = json.loads((alert["Entities"]))
+                except JSONDecodeError:
+                    pass
+            return alert
+        return None
+
+    def _select_top_alert(self):
+        """Select the first alert by default."""
+        top_alert = self.alerts.iloc[0]
+        top_alert = top_alert.mask(top_alert.eq('None')).dropna()  # drop empty columns
+        if not top_alert.empty:
+            self.alert_id = top_alert.SystemAlertId
+            self.selected_alert = self._get_alert(self.alert_id)
+            if self.alert_action is not None:
+                self._run_action()
+
 # pylint: disable=too-many-instance-attributes
 @deprecated(
     reason="Superceded by SelectAlert. Please use that version", version="0.5.2"

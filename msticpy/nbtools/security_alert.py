@@ -208,3 +208,20 @@ class SecurityAlert(SecurityBase):
                     # just add it as it is
                     entity = UnknownEntity(**prop)
                 self._src_entities[prop["$id"]] = entity
+
+
+
+
+@export
+class ExtSecurityAlert(SecurityAlert):
+    def to_html(self, show_entities=False) -> str:
+        """Return the item as HTML string."""
+        if "Description" in self.properties:
+            title = """
+            <h2>Description: {description}</h2>
+            """.format(
+                description=self.properties["Description"]
+            )
+        else:
+            title = ""
+        return title + super().to_html(show_entities)

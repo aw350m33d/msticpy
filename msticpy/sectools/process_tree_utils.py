@@ -63,7 +63,7 @@ class ProcSchema:
             If the schema is not known.
 
         """
-        if self.process_name == "NewProcessName":
+        if self.process_name in ["NewProcessName", "Image"]:
             return "EventID"
         if self.process_name == "exe":
             return "EventType"
@@ -86,7 +86,7 @@ class ProcSchema:
 
         """
         if self.process_name == "NewProcessName":
-            return 4688
+            return [1, 4688]
         if self.process_name == "exe":
             return "SYSCALL_EXECVE"
         raise ProcessTreeSchemaException("Unknown schema.")
@@ -221,7 +221,7 @@ def _clean_proc_data(procs: pd.DataFrame, schema: ProcSchema) -> pd.DataFrame:
     )
 
     # Filter out any non-process events
-    event_type_filter = procs_cln[schema.event_type_col] == schema.event_filter
+    event_type_filter = procs_cln[schema.event_type_col].isin(schema.event_filter)
     procs_cln = procs_cln[event_type_filter]
 
     # Change Linux int cols to force int then to string types

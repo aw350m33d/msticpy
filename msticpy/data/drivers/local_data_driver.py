@@ -55,7 +55,7 @@ class LocalDataDriver(DriverBase):
         """Read files in data paths."""
         data_files = {}
         for path in self._paths:
-            for pattern in ["**/*.pkl", "**/*.csv"]:
+            for pattern in ["**/*.pkl", "**/*.csv", "**/*.json"]:
                 found_files = Path(path).resolve().glob(pattern)
                 data_files.update(
                     {
@@ -135,6 +135,13 @@ class LocalDataDriver(DriverBase):
             return pd.read_csv(
                 file_path, infer_datetime_format=True, parse_dates=["TimeGenerated"]
             )
+        if file_path.endswith(".json"):
+            return pd.read_json(
+                file_path, convert_dates=["@timestamp", "TimeCreated", "TimeGenerated"],
+                lines=True,
+                orient='records',
+                dtype='object'
+            )  
         data_df = pd.read_pickle(file_path)
         if isinstance(data_df, pd.DataFrame):
             return data_df
