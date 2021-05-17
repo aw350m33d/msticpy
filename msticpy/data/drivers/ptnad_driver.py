@@ -34,7 +34,7 @@ except ImportError as imp_err:
     raise MsticpyImportExtraError(
         "Cannot use this feature without ptnad_api installed",
         title="Error importing ptnad_api",
-        extra="ptnad_api",
+        extra="ptnad",
     ) from imp_err
 
 __version__ = VERSION

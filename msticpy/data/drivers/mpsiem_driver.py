@@ -35,7 +35,7 @@ except ImportError as imp_err:
     raise MsticpyImportExtraError(
         "Cannot use this feature without mpsiem_api installed",
         title="Error importing mpsiem_api",
-        extra="mpsiem_api",
+        extra="mpsiem",
     ) from imp_err
 
 __version__ = VERSION

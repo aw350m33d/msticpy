@@ -71,6 +71,8 @@ EXTRAS = {
     ],
     "ml": ["scikit-learn>=0.20.2", "scipy>=1.1.0", "statsmodels>=0.11.1"],
     "sql2kql": ["moz_sql_parser>=4.5.0,<=4.11.21016"],
+    "mpsiem" : ["mpsiem_api>=0.0.1"],
+    "ptnad": ["ptnad_api>=0.0.1"],
 }
 extras_all = [
     extra for name, extras in EXTRAS.items() for extra in extras if name != "dev"
