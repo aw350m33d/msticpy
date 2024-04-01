@@ -53,6 +53,7 @@ EXTRAS = {
     "sql2kql": ["mo-sql-parsing>=8, <9.0.0"],
     "riskiq": ["passivetotal>=2.5.3"],
     "panel": ["panel>=0.14.4"],
+    "mpsiem": ["mpsiemlib @ git+https://github.com/aw350m33d/mpsiemlib.git"]
 }
 extras_all = [
     extra for name, extras in EXTRAS.items() for extra in extras if name != "dev"

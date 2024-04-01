@@ -56,7 +56,7 @@ GraphLayout = Union[
 def plot_nx_graph(
     nx_graph: nx.Graph,
     title: str = "Data Graph",
-    node_size: int = 25,
+    node_radius: float = 0.1,
     font_size: Union[int, str] = 10,
     height: int = 800,
     width: int = 800,
@@ -169,7 +169,7 @@ def plot_nx_graph(
         nx_graph_for_plotting, graph_layout, scale=scale, center=(0, 0)
     )
     _create_edge_renderer(graph_renderer, edge_color=edge_color)
-    _create_node_renderer(graph_renderer, node_size, "node_color")
+    _create_node_renderer(graph_renderer, node_radius, "node_color")
 
     graph_renderer.selection_policy = NodesAndLinkedEdges()
     graph_renderer.inspection_policy = EdgesAndLinkedNodes()
@@ -237,14 +237,14 @@ def _create_edge_hover(
     return HoverTool(tooltips=edge_tooltips, renderers=renderers)
 
 
-def _create_node_renderer(graph_renderer: Renderer, node_size: int, fill_color: str):
+def _create_node_renderer(graph_renderer: Renderer, node_radius: float, fill_color: str):
     """Create graph render for nodes."""
-    graph_renderer.node_renderer.glyph = Circle(size=node_size, fill_color=fill_color)
+    graph_renderer.node_renderer.glyph = Circle(radius=node_radius, fill_color=fill_color)
     graph_renderer.node_renderer.hover_glyph = Circle(
-        size=node_size, fill_color=Spectral4[1]
+        radius=node_radius, fill_color=Spectral4[1]
     )
     graph_renderer.node_renderer.selection_glyph = Circle(
-        size=node_size, fill_color=Spectral4[2]
+        radius=node_radius, fill_color=Spectral4[2]
     )
 
 

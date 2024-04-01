@@ -40,6 +40,9 @@ _ENVIRONMENT_DRIVERS = {
     DataEnvironment.MSSentinel_Legacy: ("kql_driver", "KqlDriver"),
     DataEnvironment.Kusto_Legacy: ("kusto_driver", "KustoDriver"),
     DataEnvironment.M365DGraph: ("mdatp_driver", "MDATPDriver"),
+    DataEnvironment.MPSIEMEvents: ("mpsiem_events_driver", "MPSIEMEventsDriver"),
+    DataEnvironment.MPSIEMAssets: ("mpsiem_assets_driver", "MPSIEMAssetsDriver"),
+    DataEnvironment.MPSIEMIncidents: ("mpsiem_incidents_driver", "MPSIEMIncidentsDriver"),
 }
 
 CUSTOM_PROVIDERS: Dict[str, type] = {}

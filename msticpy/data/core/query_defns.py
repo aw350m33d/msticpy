@@ -38,6 +38,9 @@ class DataFamily(Enum):
     Sumologic = 10
     Cybereason = 11
     Elastic = 14
+    MPSIEMEvents = 42
+    MPSIEMAssets = 43
+    MPSIEMIncidents = 44
 
     @classmethod
     def parse(cls, value: Union[str, int]) -> "DataFamily":
@@ -117,6 +120,10 @@ class DataEnvironment(Enum):
     VelociraptorLogs = 18
     Velociraptor = 18
     M365DGraph = 20
+    # ...
+    MPSIEMEvents = 42
+    MPSIEMAssets = 43
+    MPSIEMIncidents = 44
 
     @classmethod
     def parse(cls, value: Union[str, int]) -> "DataEnvironment":
